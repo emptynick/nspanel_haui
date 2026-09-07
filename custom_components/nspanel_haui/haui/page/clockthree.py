@@ -23,7 +23,7 @@ class ClockThreePage(HAUIPage):
     DESCRIPTOR = PageDescriptor(
         type_key="clockthree",
         page_name="clockthree",
-        page_id=7,
+        page_id=21,
         label=_("ClockThree"),
         description=_("Digital clock with date and notification indicator."),
         options=[
