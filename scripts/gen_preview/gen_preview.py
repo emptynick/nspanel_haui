@@ -203,6 +203,7 @@ _PAGE_CLASSES: dict[str, str] = {
     "ClimatePage": "climate",
     "ClockPage": "clock",
     "ClockTwoPage": "clocktwo",
+    "ClockThreePage": "clockthree",
     "CoverPage": "cover",
     "GridPage": "grid",
     "LightPage": "light",

@@ -7,6 +7,7 @@ from ..page.blank import BlankPage
 from ..page.climate import ClimatePage
 from ..page.clock import ClockPage
 from ..page.clocktwo import ClockTwoPage
+from ..page.clockthree import ClockThreePage
 from ..page.cover import CoverPage
 from ..page.grid import GridPage
 from ..page.light import LightPage
@@ -33,6 +34,7 @@ _page_classes: list[type] = [
     ClimatePage,
     ClockPage,
     ClockTwoPage,
+    ClockThreePage,
     CoverPage,
     GridPage,
     LightPage,
