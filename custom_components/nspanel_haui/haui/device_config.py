@@ -69,10 +69,10 @@ DEVICE_CONFIG: dict[str, Any] = {
     "timeout_dimming": 10,
     "timeout_page": 30,
     "timeout_sleep": 120,
-    "sound_on_startup": True,
+    "sound_on_startup": False,
     # color overrides (dict[str, int] — RGB565 values overriding COLORS defaults)
     "color_overrides": {},
-    "sound_on_notification": True,
+    "sound_on_notification": False,
     "use_do_not_disturb": False,  # toggle to enable quiet hours
     "quiet_hours_start": "",  # empty = disabled, format "HH:MM" (24h)
     "quiet_hours_end": "",  # empty = disabled, format "HH:MM"

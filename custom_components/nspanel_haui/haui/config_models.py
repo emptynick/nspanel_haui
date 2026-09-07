@@ -68,8 +68,8 @@ def _ensure_models() -> None:
         show_notifications_button: bool = True
         reset_interaction_on_button: bool = True
         snapshot_max_age_seconds: int = -1
-        sound_on_startup: bool = True
-        sound_on_notification: bool = True
+        sound_on_startup: bool = False
+        sound_on_notification: bool = False
         use_do_not_disturb: bool = False
         quiet_hours_start: str = ""
         quiet_hours_end: str = ""

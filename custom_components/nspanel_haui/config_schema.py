@@ -154,9 +154,9 @@ class ConfigSchema:
                 "snapshot_max_age_seconds",
                 default=current.get("snapshot_max_age_seconds", -1),
             ): vol.Coerce(int),
-            vol.Required("sound_on_startup", default=current.get("sound_on_startup", True)): bool,
+            vol.Required("sound_on_startup", default=current.get("sound_on_startup", False)): bool,
             vol.Required(
-                "sound_on_notification", default=current.get("sound_on_notification", True)
+                "sound_on_notification", default=current.get("sound_on_notification", False)
             ): bool,
             vol.Required(
                 "use_do_not_disturb", default=current.get("use_do_not_disturb", False)
