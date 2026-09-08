@@ -168,3 +168,93 @@ export function renderClockTwoPreview(_host, panel, _pIdx, _pt) {
     containerClass: backgroundClass(panel),
   };
 }
+
+export function renderClockThreePreview(host, panel, _pIdx, _pt) {
+  const showWeather = panel?.show_weather !== false;
+  const showTemp = panel?.show_temp !== false;
+  const showHomeTemp = panel?.show_home_temp === true;
+  const hasWeatherEntity = !!(panel?.item);
+  const showTimeTime = panel?.show_time_time !== false;
+  const showTimeDate = panel?.show_time_date !== false;
+  const showTimeOutsideTemp = panel?.show_time_outside_temp !== false;
+  const showTimeInsideTemp = panel?.show_time_inside_temp === true;
+  const bg = backgroundClass(panel);
+  const items = (panel && panel.items) || [];
+
+  const cycleCards = [];
+  if (showTimeTime) cycleCards.push('time');
+  if (showTimeDate) cycleCards.push('date');
+  if (showTimeOutsideTemp) cycleCards.push('outside_temperature');
+  if (showTimeInsideTemp) cycleCards.push('inside_temperature');
+  if (!cycleCards.length) cycleCards.push('time');
+  const card = cycleCards[0];
+
+  const entitySlots = [0, 1, 2, 3, 4, 5].map(i => {
+    const item = items[i];
+    if (item) {
+      const { icon, name } = itemDisplay(item, host);
+      const shortName = name.length > 6 ? name.slice(0, 5) + '\u2026' : name;
+      const tileBg = tileBgColor(item);
+      const tileIc = tileIconColor(item);
+      return html`
+        <div class="pg-preview-clock-entity-btn" style="${tileBg ? `background:${tileBg};` : ''}">
+          <ha-icon icon="${icon}" style="${tileIc ? `color:${tileIc};` : ''}"></ha-icon>
+          ${name ? html`<span class="pg-preview-clock-entity-label">${shortName}</span>` : ''}
+        </div>
+      `;
+    }
+    return html`
+      <div class="pg-preview-clock-entity-btn" style="background:rgba(255,255,255,0.04);">
+        <ha-icon icon="mdi:plus" style="--mdc-icon-size:clamp(10px,2.2cqi,15px);color:rgba(255,255,255,0.12);"></ha-icon>
+      </div>
+    `;
+  });
+
+  return {
+    content: html`
+      <div class="pg-preview-full-col" style="gap:1px;">
+        <div style="display:flex;flex-shrink:0;align-items:center;width:100%;gap:4px;min-height:0;padding:0 2px;">
+          <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:1px;">
+            ${showTemp ? html`
+              <div style="font-size:clamp(9px,2.5cqi,15px);font-weight:400;color:var(--primary-text-color,#ddd);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+                ${showHomeTemp ? html`
+                  <ha-icon icon="mdi:home-thermometer" style="--mdc-icon-size:clamp(9px,2cqi,13px);color:var(--secondary-text-color,#aaa);vertical-align:middle;"></ha-icon>
+                  21<small style="font-size:0.7em;color:var(--secondary-text-color,#ccc);">&deg;</small>
+                  <span style="margin:0 3px;"></span>
+                ` : ''}
+                <ha-icon icon="mdi:thermometer" style="--mdc-icon-size:clamp(9px,2cqi,13px);color:var(--secondary-text-color,#aaa);vertical-align:middle;"></ha-icon>
+                21<small style="font-size:0.7em;color:var(--secondary-text-color,#ccc);">&deg;</small>
+              </div>
+              <div style="font-size:clamp(7px,1.6cqi,11px);font-weight:400;color:var(--secondary-text-color,#888);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${hasWeatherEntity ? '1023 hPa' : ''}</div>
+            ` : ''}
+          </div>
+          ${showWeather ? html`
+            <div style="display:flex;flex-shrink:0;align-items:center;">
+              <ha-icon icon="mdi:weather-partly-cloudy" style="--mdc-icon-size:clamp(34px,9cqi,58px);color:${panel?.weather_icons === 'monochrome' ? 'var(--primary-text-color,#ddd)' : 'var(--primary-color,#4fc3f7)'};"></ha-icon>
+            </div>
+          ` : ''}
+        </div>
+
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;min-height:0;gap:1px;">
+          ${card === 'time' ? html`
+            <span style="font-size:clamp(50px,14cqi,88px);font-weight:400;color:var(--primary-text-color,#fff);letter-spacing:5px;line-height:1;">12:34</span>
+            <div style="font-size:clamp(9px,2.2cqi,14px);font-weight:400;color:var(--secondary-text-color,#aaa);">Mon, Jun 16</div>
+          ` : card === 'date' ? html`
+            <span style="font-size:clamp(36px,10cqi,68px);font-weight:400;color:var(--primary-text-color,#fff);line-height:1;">Mon 16</span>
+            <div style="font-size:clamp(9px,2.2cqi,14px);font-weight:400;color:var(--secondary-text-color,#aaa);">Mon, Jun 16</div>
+          ` : card === 'outside_temperature' ? html`
+            <span style="font-size:clamp(36px,10cqi,68px);font-weight:400;color:var(--primary-text-color,#fff);line-height:1;">21&deg;C</span>
+            <div style="font-size:clamp(9px,2.2cqi,14px);font-weight:400;color:var(--secondary-text-color,#aaa);">OUTSIDE</div>
+          ` : html`
+            <span style="font-size:clamp(36px,10cqi,68px);font-weight:400;color:var(--primary-text-color,#fff);line-height:1;">24&deg;C</span>
+            <div style="font-size:clamp(9px,2.2cqi,14px);font-weight:400;color:var(--secondary-text-color,#aaa);">INSIDE</div>
+          `}
+        </div>
+
+        <div class="pg-preview-clock-entity-row" style="flex-shrink:0;">
+          ${entitySlots}
+        </div>
+      </div>`,
+    containerClass: bg,
+  };
+}

@@ -23,7 +23,7 @@ class ClockThreePage(HAUIPage):
     DESCRIPTOR = PageDescriptor(
         type_key="clockthree",
         page_name="clockthree",
-        page_id=21,
+        page_id=19,
         label=_("ClockThree"),
         description=_("Digital clock with date and notification indicator."),
         options=[
@@ -148,7 +148,6 @@ class ClockThreePage(HAUIPage):
         t_date=Component(4, "tDate"),
         t_main_icon=Component(5, "tMainIcon"),
         t_main_text=Component(6, "tMainText"),
-        t_sub_text=Component(7, "tSubText"),
         f1_ico=Component(17, "f1Icon"),
         f2_ico=Component(18, "f2Icon"),
         f3_ico=Component(19, "f3Icon"),
@@ -255,18 +254,16 @@ class ClockThreePage(HAUIPage):
             self.COMPONENTS.t_main_text[1],
             visible=self._show_temp,
         )
-        self.set_function_component(
-            self.COMPONENTS.t_sub_text,
-            self.COMPONENTS.t_sub_text[1],
-            visible=self._show_temp,
-        )
         # notification (shares t_main_icon with the weather icon)
         self._show_notifications = panel.get("show_notifications", True)
-        # Pre-register entity button components so config_panel registers
+        # Pre-register entity icon/text components so config_panel registers
         # touch callbacks.  Start hidden — update_items() applies the
         # correct visible/icon/color state once entity data is available.
         for i in range(self.NUM_ENTITIES):
-            component = getattr(self.COMPONENTS, f"btn_entity_{i + 1}")
+            component = getattr(self.COMPONENTS, f"f{i + 1}Val")
+            self.set_function_component(component, component.name, "item", visible=False)
+            
+            component = getattr(self.COMPONENTS, f"f{i + 1}Icon")
             self.set_function_component(component, component.name, "item", visible=False)
 
     def render_panel(self, panel: HAUIPanel) -> None:
@@ -431,15 +428,9 @@ class ClockThreePage(HAUIPage):
         if not self.TEMP_PRECISION:
             temp_outside = int(temp_outside)
         msg = f"{msg}{parse_icon('mdi:thermometer')}{temp_outside}{self._temp_unit}"
-        msg_sub = self._weather_item.get_item_attr("pressure", "")
-        if msg_sub:
-            pressure_unit = self._weather_item.get_item_attr("pressure_unit")
-            msg_sub = f"{msg_sub}{pressure_unit}"
+
         self.update_function_component(
             self.COMPONENTS.t_main_text[1], text=msg, visible=self._show_temp
-        )
-        self.update_function_component(
-            self.COMPONENTS.t_sub_text[1], text=msg_sub, visible=self._show_temp
         )
         self.update_function_component(
             self.COMPONENTS.t_main_icon[1],
@@ -472,17 +463,20 @@ class ClockThreePage(HAUIPage):
                 visible = True
             else:
                 item = None
-            component = getattr(self.COMPONENTS, f"btn_entity_{i + 1}")
-            self.set_function_component(
-                component,
-                component.name,
-                "item",
-                item=item,
-                icon=icon,
-                color=color,
-                visible=visible,
-            )
-            self.update_function_component(component.name)
+            txt_component = getattr(self.COMPONENTS, f"f{i + 1}Val")
+            self.set_component_text(txt_component, f"{i}")
+            #self.set_function_component(
+            #    component,
+            #    component.name,
+            #    "item",
+            #    item=item,
+            #    icon=icon,
+            #    color=color,
+            #    visible=visible,
+            #)
+            #self.update_function_component(component.name)*/
+
+
 
     def _refresh_notif(self) -> None:
         """Show the notification bell on t_main_icon, or fall back to the weather icon."""
