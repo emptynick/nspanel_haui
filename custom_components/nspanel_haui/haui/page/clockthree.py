@@ -260,10 +260,10 @@ class ClockThreePage(HAUIPage):
         # touch callbacks.  Start hidden — update_items() applies the
         # correct visible/icon/color state once entity data is available.
         for i in range(self.NUM_ENTITIES):
-            component = getattr(self.COMPONENTS, f"f{i + 1}Val")
+            component = getattr(self.COMPONENTS, f"f{i + 1}_val")
             self.set_function_component(component, component.name, "item", visible=False)
             
-            component = getattr(self.COMPONENTS, f"f{i + 1}Icon")
+            component = getattr(self.COMPONENTS, f"f{i + 1}_ico")
             self.set_function_component(component, component.name, "item", visible=False)
 
     def render_panel(self, panel: HAUIPanel) -> None:
@@ -463,7 +463,7 @@ class ClockThreePage(HAUIPage):
                 visible = True
             else:
                 item = None
-            txt_component = getattr(self.COMPONENTS, f"f{i + 1}Val")
+            txt_component = getattr(self.COMPONENTS, f"f{i + 1}_val")
             self.set_component_text(txt_component, f"{i}")
             #self.set_function_component(
             #    component,
