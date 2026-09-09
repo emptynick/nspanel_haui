@@ -140,10 +140,6 @@ class ClockThreePage(HAUIPage):
     )
 
     COMPONENTS = ComponentRegistry(
-        fnc_left_pri=Component(3, "bFncLPri"),
-        fnc_left_sec=Component(4, "bFncLSec"),
-        fnc_right_pri=Component(5, "bFncRPri"),
-        fnc_right_sec=Component(6, "bFncRSec"),
         t_time=Component(3, "tTime"),
         t_date=Component(4, "tDate"),
         t_main_icon=Component(5, "tMainIcon"),

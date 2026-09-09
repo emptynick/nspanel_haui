@@ -225,7 +225,6 @@ export function renderClockThreePreview(host, panel, _pIdx, _pt) {
                 <ha-icon icon="mdi:thermometer" style="--mdc-icon-size:clamp(9px,2cqi,13px);color:var(--secondary-text-color,#aaa);vertical-align:middle;"></ha-icon>
                 21<small style="font-size:0.7em;color:var(--secondary-text-color,#ccc);">&deg;</small>
               </div>
-              <div style="font-size:clamp(7px,1.6cqi,11px);font-weight:400;color:var(--secondary-text-color,#888);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${hasWeatherEntity ? '1023 hPa' : ''}</div>
             ` : ''}
           </div>
           ${showWeather ? html`
