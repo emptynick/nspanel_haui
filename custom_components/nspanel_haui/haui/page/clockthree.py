@@ -24,7 +24,7 @@ class ClockThreePage(HAUIPage):
         type_key="clockthree",
         page_name="clockthree",
         page_id=19,
-        label=_("ClockThree"),
+        label=_("Clock Three"),
         description=_("Digital clock with date and notification indicator."),
         options=[
             PageOption(
@@ -148,16 +148,16 @@ class ClockThreePage(HAUIPage):
         t_date=Component(4, "tDate"),
         t_main_icon=Component(5, "tMainIcon"),
         t_main_text=Component(6, "tMainText"),
-        f1_ico=Component(7, "f1Icon"),
-        f2_ico=Component(18, "f2Icon"),
-        f3_ico=Component(19, "f3Icon"),
-        f4_ico=Component(20, "f4Icon"),
-        f5_ico=Component(21, "f5Icon"),
-        f1_val=Component(8, "f1Val"),
-        f2_val=Component(23, "f2Val"),
-        f3_val=Component(24, "f3Val"),
-        f4_val=Component(25, "f4Val"),
-        f5_val=Component(26, "f5Val"),
+        f1_ico=Component(7,  "f1Icon"),
+        f2_ico=Component(9,  "f2Icon"),
+        f3_ico=Component(11, "f3Icon"),
+        f4_ico=Component(13, "f4Icon"),
+        f5_ico=Component(15, "f5Icon"),
+        f1_val=Component(8,  "f1Val"),
+        f2_val=Component(10, "f2Val"),
+        f3_val=Component(12, "f3Val"),
+        f4_val=Component(14, "f4Val"),
+        f5_val=Component(16, "f5Val"),
     )
 
     NUM_ENTITIES = 5
