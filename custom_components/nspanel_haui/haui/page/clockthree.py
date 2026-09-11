@@ -218,21 +218,8 @@ class ClockThreePage(HAUIPage):
         self._weather_icons_mode = panel.get("weather_icons", "color")
         # Read card enable flags from panel config
         self._show_time_time = panel.get("show_time_time", True)
-        self._show_time_date = panel.get("show_time_date", True)
-        self._show_time_outside_temp = panel.get("show_time_outside_temp", True)
-        self._show_time_inside_temp = panel.get("show_time_inside_temp", False)
         # Build cycle list from enabled cards
-        self._cycle_cards = []
-        if self._show_time_time:
-            self._cycle_cards.append("time")
-        if self._show_time_date:
-            self._cycle_cards.append("date")
-        if self._show_time_outside_temp:
-            self._cycle_cards.append("outside_temperature")
-        if self._show_time_inside_temp:
-            self._cycle_cards.append("inside_temperature")
-        if not self._cycle_cards:
-            self._cycle_cards = ["time"]
+        self._cycle_cards = ["time"]
         # Reset card position
         self._current_card_index = 0
         self._card_timer = 0
