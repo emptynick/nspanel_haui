@@ -55,14 +55,6 @@ class ClockThreePage(HAUIPage):
                 section=_("Time"),
             ),
             PageOption(
-                key="show_time_date",
-                kind="bool",
-                default=True,
-                label=_("Show date"),
-                description=_("Show current date as a cycle card."),
-                section=_("Time"),
-            ),
-            PageOption(
                 key="show_time_outside_temp",
                 kind="bool",
                 default=True,
@@ -168,7 +160,6 @@ class ClockThreePage(HAUIPage):
     def prepare(self) -> None:
         self._show_notifications = True
         self._show_time_time = True
-        self._show_time_date = True
         self._show_time_inside_temp = False
         self._show_weather = True
         self._show_temp = True
@@ -244,10 +235,10 @@ class ClockThreePage(HAUIPage):
         # correct visible/icon/color state once entity data is available.
         for i in range(self.NUM_ENTITIES):
             component = getattr(self.COMPONENTS, f"f{i + 1}_val")
-            self.set_function_component(component, component.name, "item", visible=False)
+            self.set_function_component(component, component.name, "item", visible=True)
             
             component = getattr(self.COMPONENTS, f"f{i + 1}_ico")
-            self.set_function_component(component, component.name, "item", visible=False)
+            self.set_function_component(component, component.name, "item", visible=True)
 
     def render_panel(self, panel: HAUIPanel) -> None:
         # Reset and render current card
